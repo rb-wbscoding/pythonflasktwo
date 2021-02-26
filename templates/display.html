@@ -1,0 +1,20 @@
+{% extends "body.html" %}{% block content %}
+
+
+<div>
+    <canvas width={{ jsoneddata["webformatWidth"] }} height={{ jsoneddata["webformatHeight"] }}></canvas>
+</div>
+
+
+<script>
+var canvas = document.getElementsByTagName('canvas');
+var ctx = canvas[0].getContext('2d')
+
+var img = new Image();
+img.src="{{ jsoneddata["webformatURL"] }}"
+
+img.onload = function(){
+    ctx.drawImage(img,0,0)
+}
+</script>
+{% endblock %}
