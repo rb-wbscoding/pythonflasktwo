@@ -1,12 +1,15 @@
-from flask import Flask, render_template, request, json
+from flask import Flask, render_template, request, json, session
 import requests
+
+
 #from flask.json import JSONEncoder, JSONDecoder
 
 app = Flask(__name__)
+app.secret_key="richard"
 
 
-@app.route('/')
-def hello_world():
+@app.before_first_request
+def load_from_API():
     parameters = {
         'key': '17706064-dbf47c15f3ffee1df9f90dd47',
         'q': 'donald+trump',
@@ -33,8 +36,16 @@ def hello_world():
     }
     responseangie = requests.get('https://pixabay.com/api/', params=parameters)
     respangie = responseangie.json()
+    session['API_data'] = [respdon, respput, respangie]
 
-    return render_template('demo.html', respdon=respdon, respput=respput, respangie=respangie)
+
+@app.route('/')
+def load_up_choice():
+    if "API_data" in session:
+        alldata = session["API_data"]
+        return render_template('demo.html', respdon=alldata[0], respput=alldata[1], respangie=alldata[2])
+    else:
+        return 'waiting'
 
 @app.route('/display/', methods=['POST', 'GET'])
 def displ():

@@ -1,20 +1,22 @@
 {% extends "body.html" %}{% block content %}
 
 <form method ="post" action="/display/ ">
-    <div>
     <h1>Donald</h1>
+    <div class="container">
         {% for entries in respdon.hits  %}
              <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img  src="{{ entries.previewURL }}" alt="donald" /></button>
         {% endfor %}
     </div>
-    <div>
     <h1>Vlad</h1>
+    <div class="container">
+
         {% for entries in respput.hits  %}
             <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img src="{{ entries.previewURL }}" alt="vlad" /></button>
         {% endfor %}
     </div>
-    <div>
     <h1>Angie</h1>
+    <div class="container">
+
         {% for entries in respangie.hits  %}
             <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img src="{{ entries.previewURL }}" alt="angie" /></button>
         {% endfor %}
