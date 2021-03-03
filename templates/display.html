@@ -1,20 +1,102 @@
 {% extends "body.html" %}{% block content %}
 
+ <div class="container">
+        <canvas id="caNvas" name="caNvas" width="{{ jsoneddata["webformatWidth"] }}" height="{{ jsoneddata["webformatHeight"] }}"></canvas>
+ </div>
 
-<div class="container">
-    <canvas width={{ jsoneddata["webformatWidth"] }} height={{ jsoneddata["webformatHeight"] }}></canvas>
-</div>
+ {% if displayed == False %}
+<form method ="post" action="/display/ ">
+        <h4>TOP TEXT</h4>
+        <div class="container">
+            <input type="text" id="topText" name="topText" placeholder="Enter your">
+        </div>
+        <h4>BOTTOM TEXT</h4>
+        <div class="container">
+            <input type="text" id="bottomText" name="bottomText" placeholder="Text here">
+        </div>
+        <div class="container2">
+            <input type="number" id="textSize" name="textSize" min="12" max="50" value="30">
+            <input type="color" id="textColor" name="textColor">
+        </div>
+        <div class="container">
+            <input class="enterButton" type="submit" id="apply" name="apply"  value="APPLY">
+        </div>
+</form>
+    {% else %}
+         <div class="container">
+             <a id="downLoad" download="memetest.jpg">
+                 <button class="enterButton" id="save" name="save" onClick="saveToFile()">SAVE</button>
+             </a>
+        </div>
+         <div class="container">
+            <a id="repeat" href="/display/">
+                 <input class="enterButton" type="submit" id="tryagain" name="tryagain" value="TRY AGAIN">
+            </a>
+
+        </div>
+         <div class="container">
+            <a id="copied" >
+                <input class="enterButton" type="submit" id="copypic" name="copypic" onClick="toClipBoard()" value="COPY">
+            </a>
+
+        </div>
+    {% endif %}
 
 
-<script>
-var canvas = document.getElementsByTagName('canvas');
-var ctx = canvas[0].getContext('2d')
 
-var img = new Image();
+
+<script type="text/javascript">
+let canvas = document.getElementById('caNvas');
+let ctx = canvas.getContext('2d')
+
+let img = new Image();
+img.crossOrigin = 'Anonymous';
 img.src="{{ jsoneddata["webformatURL"] }}"
 
 img.onload = function(){
     ctx.drawImage(img,0,0)
+    ctx.font="bold "+"{{ textSize }}"+"px Arial"
+    ctx.fillStyle = "{{ textColor }}"
+    let topStart = "{{ jsoneddata["webformatWidth"] }}"/2 - Math.floor(ctx.measureText("{{ topText }}").width)/2
+    let bottomStart = "{{ jsoneddata["webformatWidth"] }}"/2 - Math.floor(ctx.measureText("{{ bottomText }}").width)/2
+    ctx.fillText("{{ topText }}", topStart, 50, {{ jsoneddata["webformatWidth"] }})
+    ctx.fillText("{{ bottomText }}", bottomStart, {{ jsoneddata["webformatHeight"] }}-30, {{ jsoneddata["webformatWidth"] }})
+
 }
+
+function saveToFile() {
+    let aindoc = document.getElementById('downLoad')
+    let bobby = document.getElementById('save')
+    if (bobby.innerText==='SAVE'){
+        window.alert("Hello I saved")
+        let dataURL = canvas.toDataURL("image/jpeg")
+        aindoc.href = dataURL
+        bobby.innerText = "SAVED"}
+    else {
+        aindoc.
+        aindoc.href = "/saved/"
+    }
+    //document.body.appendChild(aindoc)
+}
+
+function directToSave(){
+    //window.open("/")
+    //canvas.toBlob(function(blobby){
+      //  window.alert("Hello I saved")
+       // let xhr = new XMLHttpRequest()
+       // xhr.open('POST', "/saved/", true)
+       // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+       // xhr.send("picdata="+blobby)})
+}
+
+async function toClipBoard(){
+    await canvas.toBlob(function(blob){
+        window.alert('Hello I copied')
+        let newClip = new ClipboardItem({"image/png": blob})
+        navigator.clipboard.write([newClip]).then(result=>console.log("failed", result))
+    })
+
+}
+
 </script>
 {% endblock %}

@@ -1,5 +1,19 @@
+.header {
+    background-color: aqua;
+    margin: 0;
+    padding: 0;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+}
+
 h1 {
     color: blue;
+    text-align: center;
+}
+
+h2 {
+    color: green;
     text-align: center;
 }
 
@@ -21,4 +35,34 @@ canvas {
 .container {
     display: flex;
     justify-content: center;
+}
+
+h4 {
+    color: red;
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+}
+
+.enterButton {
+    margin-top: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.enterButton:hover {
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+.container2 {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.buttonDirector {
+    margin: 5px 5px 5px 5px;
+}
+input {
 }

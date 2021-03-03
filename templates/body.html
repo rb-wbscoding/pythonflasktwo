@@ -6,7 +6,15 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='look-general.css') }}">
 </head>
 <body>
-    <h1>The Meme Generator</h1>
+    <div class="header">
+
+        <h1>The Meme Generator</h1>
+    </div>
+    <div class="container">
+        <a id="home" href="/"><button class="buttonDirector">HOME</button></a>
+        <a id="saved" href="/saved/"><button class="buttonDirector">SAVED</button></a>
+    </div>
+
 
 {% block content %} {% endblock %}
 </body>
