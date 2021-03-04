@@ -4,19 +4,19 @@
     <h2>Donald</h2>
     <div class="container">
         {% for entries in respdon  %}
-            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img  src="{{ entries.previewURL }}" alt="donald" /></button>
+            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img  class="imghome" src="{{ entries.previewURL }}" alt="donald" /></button>
         {% endfor %}
     </div>
     <h2>Vlad</h2>
     <div class="container">
         {% for entries in respput %}
-            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img src="{{ entries.previewURL }}" alt="vlad" /></button>
+            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img class="imghome" src="{{ entries.previewURL }}" alt="vlad" /></button>
         {% endfor %}
     </div>
     <h2>Angie</h2>
     <div class="container">
         {% for entries in respangie  %}
-            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img src="{{ entries.previewURL }}" alt="angie" /></button>
+            <button type="submit" name="submit-img" id="submit-img" value="{{ entries }}"><img class="imghome" src="{{ entries.previewURL }}" alt="angie" /></button>
         {% endfor %}
     </div>
 

@@ -67,26 +67,24 @@ img.onload = function(){
 function saveToFile() {
     let aindoc = document.getElementById('downLoad')
     let bobby = document.getElementById('save')
-    if (bobby.innerText==='SAVE'){
-        window.alert("Hello I saved")
-        let dataURL = canvas.toDataURL("image/jpeg")
-        aindoc.href = dataURL
-        bobby.innerText = "SAVED"}
-    else {
-        aindoc.
-        aindoc.href = "/saved/"
-    }
+    window.alert("Hello I saved")
+    let dataURL = canvas.toDataURL("image/jpeg")
+    aindoc.href = dataURL
+    directToSave()
     //document.body.appendChild(aindoc)
 }
 
 function directToSave(){
     //window.open("/")
+    let dataURLe = canvas.toDataURL("image/jpeg")
+    let dataURLJSON=JSON.stringify(dataURLe)
     //canvas.toBlob(function(blobby){
-      //  window.alert("Hello I saved")
-       // let xhr = new XMLHttpRequest()
-       // xhr.open('POST', "/saved/", true)
-       // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-       // xhr.send("picdata="+blobby)})
+      //window.alert("Hello I saved")
+        let xhr = new XMLHttpRequest()
+        xhr.open('POST', "/saved/")
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        xhr.send("picturedata="+dataURLJSON)
+//})
 }
 
 async function toClipBoard(){

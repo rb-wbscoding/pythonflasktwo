@@ -15,6 +15,7 @@ app.config.from_object(__name__)
 Session(app)
 
 displayed = False
+picturedataarray=[]
 
 @app.before_first_request
 def load_from_API():
@@ -70,6 +71,11 @@ def displ():
         elif "apply" in request.form:
             displayed = True
             return render_template('display.html', jsoneddata=session['picdata'], topText=request.form["topText"], bottomText=request.form["bottomText"], textColor=request.form["textColor"], textSize=request.form["textSize"], displayed=displayed)
+        elif "saved-img" in request.form:
+            pictureURL = request.form["saved-img"]
+            displayed = False
+            return render_template('display.html', jsoneddata= pictureURL, topText="", bottomText="", textColor="black",
+                                   textSize="30", displayed=displayed)
     else:
         displayed = False
         return render_template('display.html', jsoneddata=session['picdata'], topText="", bottomText="",
@@ -89,19 +95,18 @@ def displ():
 
 @app.route('/saved/', methods=['POST', 'GET'])
 def saveInterface():
-    print(request)
     if request.method=='POST':
-        picdata = request.form['picdata']
-        print(picdata)
-
-
-        #print('boo')
-        return render_template('saved.html')
-        #render_template('saved.html', savedMeme=picdata)
-        #session['memedata'] = request.data
+        pictureJSON = request.form['picturedata']
+        picturedata = json.loads(pictureJSON)
+        picturedata = picturedata.replace(' ', '+')
+        lengthOfArray=len(picturedataarray)
+        if lengthOfArray > 10:
+            del picturedataarray[0]
+        picturedataarray.append(picturedata)
+        session['allpicturedata'] = json.dumps(picturedataarray)
+        return 'Hello'
     else:
-        print('hello')
-        return render_template('saved.html')
+        return render_template('allsaved.html', savedMeme=picturedataarray )
 
 
 

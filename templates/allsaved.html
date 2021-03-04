@@ -1,0 +1,37 @@
+{% extends "body.html" %}{% block content %}
+    <h1>All your memes</h1>
+    <div class="container">
+        <div id="saved-img-container">
+        </div>
+
+    </div>
+
+
+<script>
+ let aindoc = document.getElementById('saved-img-container')
+ let dave = "{{ savedMeme }}"
+ dave=dave.replaceAll('&#39;','"')
+ let bob = JSON.parse(dave)
+ console.log(bob)
+ for(const data of bob){
+    //let buttonelem = document.createElement("button")
+    let imgelem = document.createElement("img");
+    //buttonelem.type="submit"
+    //buttonelem.name="saved-img"
+    //buttonelem.id="saved-img"
+    imgelem.src=data
+    imgelem.width="250"
+    imgelem.height="250"
+    imgelem.style="margin: 10px"
+    //aindoc.appendChild(buttonelem)
+    aindoc.appendChild(imgelem)}
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+
