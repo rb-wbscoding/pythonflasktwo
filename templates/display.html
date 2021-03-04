@@ -42,9 +42,6 @@
         </div>
     {% endif %}
 
-
-
-
 <script type="text/javascript">
 let canvas = document.getElementById('caNvas');
 let ctx = canvas.getContext('2d')
@@ -71,20 +68,15 @@ function saveToFile() {
     let dataURL = canvas.toDataURL("image/jpeg")
     aindoc.href = dataURL
     directToSave()
-    //document.body.appendChild(aindoc)
 }
 
 function directToSave(){
-    //window.open("/")
     let dataURLe = canvas.toDataURL("image/jpeg")
     let dataURLJSON=JSON.stringify(dataURLe)
-    //canvas.toBlob(function(blobby){
-      //window.alert("Hello I saved")
-        let xhr = new XMLHttpRequest()
-        xhr.open('POST', "/saved/")
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        xhr.send("picturedata="+dataURLJSON)
-//})
+    let xhr = new XMLHttpRequest()
+    xhr.open('POST', "/saved/")
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+    xhr.send("picturedata="+dataURLJSON)
 }
 
 async function toClipBoard(){

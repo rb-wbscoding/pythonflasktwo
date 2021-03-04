@@ -1,12 +1,6 @@
 from flask import Flask, render_template, request, json, session, url_for, redirect
 from flask_session import Session
 import requests
-import time
-import winclip32
-
-
-
-#from flask.json import JSONEncoder, JSONDecoder
 
 app = Flask(__name__)
 app.secret_key="richard"
@@ -46,10 +40,6 @@ def load_from_API():
     responseangie = requests.get('https://pixabay.com/api/', params=parameters)
     respangie = responseangie.json()
     session['API_data'] = [respdon['hits'], respput['hits'], respangie['hits']]
-    #session['loggedIn'] = False
-
-
-
 
 @app.route('/')
 def load_up_choice():
@@ -81,18 +71,6 @@ def displ():
         return render_template('display.html', jsoneddata=session['picdata'], topText="", bottomText="",
                                textColor="black", textSize="30", displayed=displayed)
 
-        #return redirect('/saved/')
-        #if "copypic" in request.form:
-
-            #winclip32.set_clipboard_data('unicode', request.form["caNvas"])
-         #   displayed = False
-          #  return render_template('display.html', jsoneddata=session['picdata'], topText="", bottomText="", textColor="black", textSize="30", displayed=displayed)
-        #elif "tryagain" in request.form:
-         #   print("I ran")
-
-        #else:
-         #   return 'Hello2'
-
 @app.route('/saved/', methods=['POST', 'GET'])
 def saveInterface():
     if request.method=='POST':
@@ -107,19 +85,6 @@ def saveInterface():
         return 'Hello'
     else:
         return render_template('allsaved.html', savedMeme=picturedataarray )
-
-
-
-"""@app.route('/login/', methods=['POST', 'GET'])
-def login():
-    if session['loggedIn'] == True:
-        return
-    else:
-        return render_template('login.html', loggedIn=session['loggedIn'])
-
-def loginProcedure():
-    if 'personenName' and 'pwd' in request.form:"""
-
 
 if __name__ == '__main__':
     app.run(debug=True)
