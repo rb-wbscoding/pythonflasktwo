@@ -14,7 +14,7 @@ picturedataarray=[]
 @app.before_first_request
 def load_from_API():
     parameters = {
-        'key': '17706064-dbf47c15f3ffee1df9f90dd47',
+        'key': KEY_INFO,
         'q': 'donald+trump',
         'image_type': 'all',
         'per_page': 10,
@@ -23,7 +23,7 @@ def load_from_API():
     respdon=responsedon.json()
 
     parameters = {
-        'key': '17706064-dbf47c15f3ffee1df9f90dd47',
+        'key': KEY_INFO,
         'q': 'putin',
         'image_type': 'all',
         'per_page': 10,
@@ -32,7 +32,7 @@ def load_from_API():
     respput = responseput.json()
 
     parameters = {
-        'key': '17706064-dbf47c15f3ffee1df9f90dd47',
+        'key': KEY_INFO,
         'q': 'angela+merkel',
         'image_type': 'all',
         'per_page': 10,
@@ -44,7 +44,7 @@ def load_from_API():
 @app.route('/')
 def load_up_choice():
     if "API_data" in session:
-        return render_template('demo.html', respdon=session["API_data"][0], respput=session["API_data"][1], respangie=session["API_data"][2], loggedIn=session['loggedIn'])
+        return render_template('demo.html', respdon=session["API_data"][0], respput=session["API_data"][1], respangie=session["API_data"][2])
     else:
         return 'Something has gone wrong, please refresh'
 
