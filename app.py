@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, session, url_for, redirect
+from flask import Flask, render_template, request, json, session, url_for
 from flask_session import Session
 import requests
 from dotenv import load_dotenv
