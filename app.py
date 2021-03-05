@@ -7,7 +7,7 @@ import requests
 #from dotenv import load_dotenv
 #load_dotenv()
 #import os
-keyinfo = process.env.get("KEY_INFO")
+#keyinfo = process.env.get("KEY_INFO")
 
 app = Flask(__name__)
 app.secret_key="richard"
@@ -22,7 +22,7 @@ picturedataarray=[]
 @app.before_first_request
 def load_from_API():
     parameters = {
-        'key': keyinfo,
+        'key': "17706064-dbf47c15f3ffee1df9f90dd47",
         'q': 'donald+trump',
         'image_type': 'all',
         'per_page': 10,
@@ -31,7 +31,7 @@ def load_from_API():
     respdon=responsedon.json()
 
     parameters = {
-        'key': keyinfo,
+        'key': "17706064-dbf47c15f3ffee1df9f90dd47",
         'q': 'putin',
         'image_type': 'all',
         'per_page': 10,
@@ -40,7 +40,7 @@ def load_from_API():
     respput = responseput.json()
 
     parameters = {
-        'key': keyinfo,
+        'key': "17706064-dbf47c15f3ffee1df9f90dd47",
         'q': 'angela+merkel',
         'image_type': 'all',
         'per_page': 10,
