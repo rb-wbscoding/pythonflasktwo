@@ -2,10 +2,10 @@
 from flask import Flask, render_template, request, json, session, url_for
 from flask_session import Session
 import requests
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 load_dotenv()
-import os
-token = os.environ.get("KEY_INFO")
+#import os
+#token = os.environ.get("KEY_INFO")
 
 app = Flask(__name__)
 app.secret_key="richard"
@@ -19,7 +19,7 @@ picturedataarray=[]
 @app.before_first_request
 def load_from_API():
     parameters = {
-        'key': token,
+        'key': KEY_INFO,
         'q': 'donald+trump',
         'image_type': 'all',
         'per_page': 10,
@@ -28,7 +28,7 @@ def load_from_API():
     respdon=responsedon.json()
 
     parameters = {
-        'key': token,
+        'key': KEY_INFO,
         'q': 'putin',
         'image_type': 'all',
         'per_page': 10,
@@ -37,7 +37,7 @@ def load_from_API():
     respput = responseput.json()
 
     parameters = {
-        'key': token,
+        'key': KEY_INFO,
         'q': 'angela+merkel',
         'image_type': 'all',
         'per_page': 10,
