@@ -19,7 +19,7 @@ picturedataarray=[]
 @app.before_first_request
 def load_from_API():
     parameters = {
-        'key': KEY_INFO,
+        'key': 'KEY_INFO',
         'q': 'donald+trump',
         'image_type': 'all',
         'per_page': 10,
@@ -28,7 +28,7 @@ def load_from_API():
     respdon=responsedon.json()
 
     parameters = {
-        'key': KEY_INFO,
+        'key': 'KEY_INFO',
         'q': 'putin',
         'image_type': 'all',
         'per_page': 10,
@@ -37,7 +37,7 @@ def load_from_API():
     respput = responseput.json()
 
     parameters = {
-        'key': KEY_INFO,
+        'key': 'KEY_INFO',
         'q': 'angela+merkel',
         'image_type': 'all',
         'per_page': 10,
