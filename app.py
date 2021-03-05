@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, json, session, url_for
 from flask_session import Session
 import requests
 #from dotenv import load_dotenv
-load_dotenv()
+#load_dotenv()
 #import os
 #token = os.environ.get("KEY_INFO")
 
