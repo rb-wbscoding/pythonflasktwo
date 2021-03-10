@@ -1,32 +1,39 @@
 #app.py
+# Importieren von notige Flask Elementen - Flask ist eine Server Framework für die Client
 from flask import Flask, render_template, request, json, session, url_for
 from flask_session import Session
 import requests
-#from boto.s3.connection import S3Connection
 
+# für entwicklung ist eine dotenv nötig
 #from dotenv import load_dotenv
 #load_dotenv()
 #import os
 #keyinfo = process.env.get("KEY_INFO")
 
 app = Flask(__name__)
+#session key
 app.secret_key="richard"
+# sollte auf server gespeichert und für app verfügbar
 SESSION_TYPE = "filesystem"
 app.config.from_object(__name__)
 Session(app)
 
+# Variable Deklaration
 displayed = False
 picturedataarray=[]
-#keyinfo = S3connection(os.environ['KEY_INFO'])
 
+# Bei anlauf des Program sind diesen Aktion gemacht
+# Sie sind eine Dictionary von mögliche Bilder Addressen, 3 mal Geholt
 @app.before_first_request
 def load_from_API():
+    # Was gesucht sein sollen
     parameters = {
         'key': "17706064-dbf47c15f3ffee1df9f90dd47",
         'q': 'donald+trump',
         'image_type': 'all',
         'per_page': 10,
     }
+    #Abholung von den Bilder Info und Addressen
     responsedon = requests.get('https://pixabay.com/api/', params=parameters)
     respdon=responsedon.json()
 
@@ -47,8 +54,10 @@ def load_from_API():
     }
     responseangie = requests.get('https://pixabay.com/api/', params=parameters)
     respangie = responseangie.json()
+    #Als session Data gespeichert
     session['API_data'] = [respdon['hits'], respput['hits'], respangie['hits']]
 
+# Base route für Server - sendet die möglicher Bilder Addresse auf die Client nür wann es gibt Datei in session
 @app.route('/')
 def load_up_choice():
     if "API_data" in session:
