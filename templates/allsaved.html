@@ -8,11 +8,17 @@
 
 
 <script>
+//In HTML nür Container für Child element
+//Javascript
+// Link mit element von HTML doc
  let aindoc = document.getElementById('saved-img-container')
+// Variable aus Server - local variable (gespeichert saved data)
  let dave = "{{ savedMeme }}"
+// Es gibt eine Übersetzungs Fehler - bin nicht sicher warum aber muss ein Teil ersetzen
  dave=dave.replaceAll('&#39;','"')
+// Von JSON in Objekt umwandeln
  let bob = JSON.parse(dave)
- console.log(bob)
+//neue Element geschrieben in doc mit eine Img Tag, data für Image Objekt kommt aus bob
  for(const data of bob){
     let imgelem = document.createElement("img");
     imgelem.src=data

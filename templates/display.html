@@ -43,46 +43,78 @@
     {% endif %}
 
 <script type="text/javascript">
+// In HTML es gibt die Canvas, mit unten eine Form (Text oben, text unten, text große und text farbe) und mit eine Apply button.
+// (Var Displayed kontolliert die IF Zweigung)
+// Sollte die Apply aktiviert ist die zweite Teil der else Teil aktive mit eine Speicher, Wiederholung oder Kopie möglichkeiten.
+
+// Javascript
+// Ein bild ist in der Canvas mit volle Auflosung eingeladen - text kann auch in Bild geschrieben.
 let canvas = document.getElementById('caNvas');
 let ctx = canvas.getContext('2d')
 
+// Neue Image Objekt
 let img = new Image();
+
+// Vermeiden von Problem mit Unterschiedlichen Quellen
 img.crossOrigin = 'Anonymous';
+
+// geben src in Image Objekt
 img.src="{{ jsoneddata["webformatURL"] }}"
 
+// Muss warten auf loading in img Objekt
 img.onload = function(){
+
+    // Image zu den Canvas
     ctx.drawImage(img,0,0)
+
+    // Text große und Farbe
     ctx.font="bold "+"{{ textSize }}"+"px Arial"
     ctx.fillStyle = "{{ textColor }}"
+
+    // Die Mitte des Texts muss gerechnet
     let topStart = "{{ jsoneddata["webformatWidth"] }}"/2 - Math.floor(ctx.measureText("{{ topText }}").width)/2
     let bottomStart = "{{ jsoneddata["webformatWidth"] }}"/2 - Math.floor(ctx.measureText("{{ bottomText }}").width)/2
+
+    // Text schreiben auf Canvas
     ctx.fillText("{{ topText }}", topStart, 50, {{ jsoneddata["webformatWidth"] }})
     ctx.fillText("{{ bottomText }}", bottomStart, {{ jsoneddata["webformatHeight"] }}-30, {{ jsoneddata["webformatWidth"] }})
 
 }
 
+// speicher von Data zu ein Locales Order (deshalb nicht in Server)
 function saveToFile() {
     let aindoc = document.getElementById('downLoad')
-    let bobby = document.getElementById('save')
+
+    // Zeigen dass etwas passiert hat
     window.alert("Hello I saved")
+    // die dataURL ist in den <a> benutzt um ein file durch die Browser zu speichern
     let dataURL = canvas.toDataURL("image/jpeg")
     aindoc.href = dataURL
+    // Function for speichern an server
     directToSave()
 }
 
 function directToSave(){
+    // Schicken data zum Server, kann denn unten SAVED gezeigt
     let dataURLe = canvas.toDataURL("image/jpeg")
+    // in eine JSON umwandeln
     let dataURLJSON=JSON.stringify(dataURLe)
+    // neue request Objekt Offnen und Schicken
     let xhr = new XMLHttpRequest()
     xhr.open('POST', "/saved/")
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
     xhr.send("picturedata="+dataURLJSON)
 }
 
+// Schicken Bild zu den Clipboard
 async function toClipBoard(){
+    // Blob (Binary Large OBject) direkt von Canvas
     await canvas.toBlob(function(blob){
+        // Zeigen etwas is Passiert
         window.alert('Hello I copied')
+        // Neue Clipboard Object
         let newClip = new ClipboardItem({"image/png": blob})
+        //Schreiben etwas zu dem Clipboard
         navigator.clipboard.write([newClip]).then(result=>console.log("failed", result))
     })
 
